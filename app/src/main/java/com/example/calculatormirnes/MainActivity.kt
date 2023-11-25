@@ -127,6 +127,12 @@ class MainActivity : AppCompatActivity() {
                     tvmain.text="${tvmain.text}-"
                     dugme=true
                 }
+                else if(tvmainrec[tvmainsize-1]=='×'||tvmainrec[tvmainsize-1]=='+'||tvmainrec[tvmainsize-1]=='÷'){//privjeri imal -,/ i * stavi umjesto +
+                    val valText = tvmain.text.toString()
+                    val updatedVal = valText.substring(0, valText.length - 1)
+                    tvmain.text = updatedVal
+                    tvmain.text= "${tvmain.text}-"
+                }
             }
         }
         bmul.setOnClickListener {
@@ -136,6 +142,12 @@ class MainActivity : AppCompatActivity() {
                 if(tvmainrec[tvmainsize-1]!='×'&&tvmainrec[tvmainsize-1]!='+'&&tvmainrec[tvmainsize-1]!='-'&&tvmainrec[tvmainsize-1]!='÷'){//projveri imal x zadnja
                     tvmain.text="${tvmain.text}×"
                     dugme=true
+                }
+                else if(tvmainrec[tvmainsize-1]=='+'||tvmainrec[tvmainsize-1]=='-'||tvmainrec[tvmainsize-1]=='÷'){//privjeri imal -,/ i * stavi umjesto +
+                    val valText = tvmain.text.toString()
+                    val updatedVal = valText.substring(0, valText.length - 1)
+                    tvmain.text = updatedVal
+                    tvmain.text= "${tvmain.text}×"
                 }
             }
         }
@@ -147,6 +159,13 @@ class MainActivity : AppCompatActivity() {
                     tvmain.text="${tvmain.text}÷"
                     dugme=true
                 }
+                else if(tvmainrec[tvmainsize-1]=='+'||tvmainrec[tvmainsize-1]=='-'||tvmainrec[tvmainsize-1]=='×'){//privjeri imal -,/ i * stavi umjesto +
+                    val valText = tvmain.text.toString()
+                    val updatedVal = valText.substring(0, valText.length - 1)
+                    tvmain.text = updatedVal
+                    tvmain.text= "${tvmain.text}÷"
+                }
+
             }
         }
         bsqrt.setOnClickListener {
@@ -159,7 +178,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
     private fun getInputExpression(): String {
         val tvmain=findViewById<TextView>(R.id.tvmain)
         var expression=tvmain.text.replace(Regex("÷"),"/")
