@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.calculatormirnes.databinding.ActivityMainBinding
 import org.mariuszgromada.math.mxparser.Expression
@@ -11,8 +12,12 @@ import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var deg: Boolean=false
+    private var rad: Boolean=true
     override fun onCreate(savedInstanceState: Bundle?) {
         binding=ActivityMainBinding.inflate(layoutInflater)
+        val pi : String="3.14159265"
+
         //val view=root
         //setContentView(view)
         super.onCreate(savedInstanceState)
@@ -43,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val bsquare=findViewById<Button>(R.id.bsquare)
         val fact=findViewById<Button>(R.id.bfact)
         val bln=findViewById<Button>(R.id.bln)
-        val log=findViewById<Button>(R.id.blog)
+        val blog=findViewById<Button>(R.id.blog)
         val btan=findViewById<Button>(R.id.btan)
         val bsin=findViewById<Button>(R.id.bsin)
         val bcos=findViewById<Button>(R.id.bcos)
@@ -169,19 +174,97 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bsqrt.setOnClickListener {
+
             val valStr = tvmain.text.toString()
-            val r = Math.sqrt(valStr.toDouble())
-            tvmain.text = r.toString()
+            if(valStr.length>0){
+                val r = Math.sqrt(valStr.toDouble())
+                val fro =String.format("%.5f",r)
+                tvmain.text = fro.toString()
+            }
+            else{
+                Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+
+            }
+
+        }
+        bb1.setOnClickListener {
+            tvmain.text="${tvmain.text}("
+        }
+        bb2.setOnClickListener {
+            tvmain.text="${tvmain.text})"
+        }
+        bpi.setOnClickListener {
+            tvmain.text="${tvmain.text}${pi}"
+        }
+        bsin.setOnClickListener {
+            tvmain.text="${tvmain.text}sin("
+        }
+        bcos.setOnClickListener {
+            tvmain.text="${tvmain.text}cos("
+        }
+        fact.setOnClickListener {
+            tvmain.text="${tvmain.text}!"
+        }
+        bsquare.setOnClickListener {
+            val valStr = tvmain.text.toString()
+            if(valStr.length>0){
+                val r = Math.pow(valStr.toDouble(),2.0)
+                tvmain.text = r.toString()
+            }
+            else{
+                Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+            }
+
+        }
+        binv.setOnClickListener {
+            tvmain.text="1/${tvmain.text}"
         }
         bequal.setOnClickListener {
             showResult()
+        }
+        bln.setOnClickListener {
+            tvmain.text="${tvmain.text}ln("
+        }
+        btan.setOnClickListener {
+            tvmain.text="${tvmain.text}tan("
+        }
+        blog.setOnClickListener {
+            if(rad){
+                rad=false
+                deg=true
+                blog.text="DEG"
+            }
+            else {
+                rad = true
+                deg=false
+                blog.text="RAD"
+            }
 
         }
     }
+
+
+
     private fun getInputExpression(): String {
         val tvmain=findViewById<TextView>(R.id.tvmain)
         var expression=tvmain.text.replace(Regex("÷"),"/")
         expression=expression.replace(Regex("×"),"*")
+        if(deg){
+            expression=expression.replace(Regex("tan\\(([^)]+)\\)")){
+                val degree=it.groupValues[1].toDouble()
+                "tan(${Math.toRadians(degree)})"
+            }
+
+            expression=expression.replace(Regex("cos\\(([^)]+)\\)")){
+                val degree=it.groupValues[1].toDouble()
+                "cos(${Math.toRadians(degree)})"
+            }
+            expression=expression.replace(Regex("sin\\(([^)]+)\\)")){
+                val degree=it.groupValues[1].toDouble()
+                "sin(${Math.toRadians(degree)})"
+            }
+        }
+
         return expression
     }
 
@@ -190,18 +273,17 @@ class MainActivity : AppCompatActivity() {
         try{
             val expression=getInputExpression()
             val result=Expression(expression).calculate()
+
             if (result.isNaN()){
                 //Show error message
-                tvmain.text="Error"
-                tvmain.setTextColor(ContextCompat.getColor(this, R.color.purple_200))
+                Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
             }
             else{
                 tvmain.text=DecimalFormat("0.######").format(result).toString()
                 tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
             }
         }catch (e: java.lang.Exception){
-            tvmain.text="Error"
-            tvmain.setTextColor(ContextCompat.getColor(this,R.color.purple_200))
+            Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
         }
     }
 }

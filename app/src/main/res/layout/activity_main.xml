@@ -141,7 +141,7 @@
                         android:layout_height="match_parent"></Button>
                     <Button
                         android:id="@+id/blog"
-                        android:text="log"
+                        android:text="RAD"
                         android:textAllCaps="false"
                         android:textSize="30sp"
                         android:background="#000"
