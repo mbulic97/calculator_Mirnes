@@ -55,35 +55,59 @@ class MainActivity : AppCompatActivity() {
         val bb1=findViewById<Button>(R.id.bb1)
         val bb2=findViewById<Button>(R.id.bb2)
         var dugme: Boolean =true
+        /*b0.setOnClickListener {
+            tvmain.text="${tvmain.text}0"
+
+        }*/
         b0.setOnClickListener {
-            tvmain.text = "${tvmain.text}0"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "0")
+            tvmain.text = newText
         }
         b1.setOnClickListener {
-            tvmain.text = "${tvmain.text}1"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "1")
+            tvmain.text = newText
         }
         b2.setOnClickListener {
-            tvmain.text = "${tvmain.text}2"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "2")
+            tvmain.text = newText
         }
         b3.setOnClickListener {
-            tvmain.text = "${tvmain.text}3"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "3")
+            tvmain.text = newText
         }
         b4.setOnClickListener {
-            tvmain.text = "${tvmain.text}4"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "4")
+            tvmain.text = newText
         }
         b5.setOnClickListener {
-            tvmain.text = "${tvmain.text}5"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "5")
+            tvmain.text = newText
         }
         b6.setOnClickListener {
-            tvmain.text = "${tvmain.text}6"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "6")
+            tvmain.text = newText
         }
         b7.setOnClickListener {
-            tvmain.text = "${tvmain.text}7"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "7")
+            tvmain.text = newText
         }
         b8.setOnClickListener {
-            tvmain.text = "${tvmain.text}8"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "8")
+            tvmain.text = newText
         }
         b9.setOnClickListener {
-            tvmain.text = "${tvmain.text}9"
+            val currentText = tvmain.text.toString()
+            val newText = getString(R.string.placeholder_text, currentText, "9")
+            tvmain.text = newText
         }
         bac.setOnClickListener{
             tvmain.text=""
@@ -101,10 +125,14 @@ class MainActivity : AppCompatActivity() {
         bdot.setOnClickListener {
             val tvmainrec=tvmain.text
             if(tvmain.text.length==0) {
-                tvmain.text = "0."
+                val currentText = tvmain.text.toString()
+                val newText = getString(R.string.placeholder_text, currentText, "0.")
+                tvmain.text = newText
             }
             else if(dugme){
-                tvmain.text="${tvmain.text}."
+                val currentText = tvmain.text.toString()
+                val newText = getString(R.string.placeholder_text, currentText, ".")
+                tvmain.text = newText
                 dugme=false
             }
         }
@@ -113,14 +141,18 @@ class MainActivity : AppCompatActivity() {
             val tvmainsize=tvmainrec.length
             if(tvmainsize>0){
                 if(tvmainrec[tvmainsize-1]!='×'&&tvmainrec[tvmainsize-1]!='+'&&tvmainrec[tvmainsize-1]!='-'&&tvmainrec[tvmainsize-1]!='÷'){//projveri imal plus zadnja
-                    tvmain.text="${tvmain.text}+"
+                    val currentText = tvmain.text.toString()
+                    val newText = getString(R.string.placeholder_text, currentText, "+")
+                    tvmain.text = newText
                     dugme=true
                 }
                 else if(tvmainrec[tvmainsize-1]=='×'||tvmainrec[tvmainsize-1]=='-'||tvmainrec[tvmainsize-1]=='÷'){//privjeri imal -,/ i * stavi umjesto +
                     val valText = tvmain.text.toString()
                     val updatedVal = valText.substring(0, valText.length - 1)
                     tvmain.text = updatedVal
-                    tvmain.text= "${tvmain.text}+"
+                    val currentText = tvmain.text.toString()
+                    val newText = getString(R.string.placeholder_text, currentText, "+")
+                    tvmain.text = newText
                 }
             }
         }
@@ -179,7 +211,7 @@ class MainActivity : AppCompatActivity() {
             if(valStr.length>0){
                 val r = Math.sqrt(valStr.toDouble())
                 val fro =String.format("%.5f",r)
-                tvmain.text = fro.toString()
+                tvmain.text = fro
             }
             else{
                 Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
@@ -255,8 +287,12 @@ class MainActivity : AppCompatActivity() {
                 "tan(${Math.toRadians(degree)})"
             }
 
-            expression=expression.replace(Regex("cos\\(([^)]+)\\)")){
+            /*expression=expression.replace(Regex("cos\\\\(((?:[^()]+|\\\\([^()]*\\\\))+)\\\\)")){
                 val degree=it.groupValues[1].toDouble()
+                "cos(${Math.toRadians(degree)})"
+            }*/
+            expression = expression.replace(Regex("cos\\(([^)]+)\\)")) {
+                val degree = it.groupValues[1].toDouble()
                 "cos(${Math.toRadians(degree)})"
             }
             expression=expression.replace(Regex("sin\\(([^)]+)\\)")){

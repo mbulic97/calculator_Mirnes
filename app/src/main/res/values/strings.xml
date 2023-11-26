@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Calculator Mirnes</string>
+    <string name="placeholder_text">%s%s</string>
+
 </resources>
