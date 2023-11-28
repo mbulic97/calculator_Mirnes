@@ -1,5 +1,6 @@
 package com.example.calculatormirnes
 
+import android.icu.text.DecimalFormatSymbols
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -257,7 +258,8 @@ class MainActivity : AppCompatActivity() {
                     tvmain.text = nakvrd.toInt().toString()
                 }
                 else{
-                    tvmain.text = nakvrd.toString()
+                    val fro =String.format(Locale.FRANCE,"%,5f",nakvrd)
+                    tvmain.text = fro
                 }
             }
             else{
