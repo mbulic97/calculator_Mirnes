@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat
 import com.example.calculatormirnes.databinding.ActivityMainBinding
 import org.mariuszgromada.math.mxparser.Expression
 import java.text.DecimalFormat
+import java.util.*
+import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -124,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         }
         bdot.setOnClickListener {
             val tvmainrec=tvmain.text
-            if(tvmain.text.length==0) {
+            if(tvmain.text.isEmpty()) {
                 val currentText = tvmain.text.toString()
                 val newText = getString(R.string.placeholder_text, currentText, "0.")
                 tvmain.text = newText
@@ -188,7 +190,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-            bdiv.setOnClickListener {
+        bdiv.setOnClickListener {
             val tvmainrec=tvmain.text
             val tvmainsize=tvmainrec.length
             if(tvmainsize>0){
@@ -210,8 +212,16 @@ class MainActivity : AppCompatActivity() {
             val valStr = tvmain.text.toString()
             if(valStr.length>0){
                 val r = Math.sqrt(valStr.toDouble())
-                val fro =String.format("%.5f",r)
-                tvmain.text = fro
+                val rint=r.toInt()
+                if(rint.toDouble()==r){
+                    val fro =r.toInt()
+                    tvmain.text = fro.toString()
+                }
+                else{
+                    val fro =String.format(Locale.FRANCE,"%,5f",r)
+                    tvmain.text = fro
+
+                }
             }
             else{
                 Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
@@ -240,8 +250,15 @@ class MainActivity : AppCompatActivity() {
         bsquare.setOnClickListener {
             val valStr = tvmain.text.toString()
             if(valStr.length>0){
-                val r = Math.pow(valStr.toDouble(),2.0)
-                tvmain.text = r.toString()
+                val r = valStr.toDouble()
+                val nakvrd=r*r
+                val nakvrdint=nakvrd.toInt()
+                if(nakvrdint.toDouble()==nakvrd){
+                    tvmain.text = nakvrd.toInt().toString()
+                }
+                else{
+                    tvmain.text = nakvrd.toString()
+                }
             }
             else{
                 Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
