@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var deg: Boolean=false
     private var rad: Boolean=true
+    private var dugme_faktor: Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         binding=ActivityMainBinding.inflate(layoutInflater)
         val pi : String="3.14159265"
@@ -246,6 +247,7 @@ class MainActivity : AppCompatActivity() {
             tvmain.text="${tvmain.text}cos("
         }
         fact.setOnClickListener {
+            dugme_faktor=true
             tvmain.text="${tvmain.text}!"
         }
         bsquare.setOnClickListener {
@@ -326,17 +328,32 @@ class MainActivity : AppCompatActivity() {
     private fun showResult() {
         val tvmain=findViewById<TextView>(R.id.tvmain)
         try{
-            val expression=getInputExpression()
-            val result=Expression(expression).calculate()
-
-            if (result.isNaN()){
-                //Show error message
-                Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+            if(dugme_faktor){
+                val expression=getInputExpression()
+                val sas= FactorialK()
+                if( sas.factorialfindcomma(expression)) {//show error mesage
+                    Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    var expressi=tvmain.text.replace(Regex("!"),"")
+                    tvmain.text=FactorialK().result(expressi).toString()
+                    tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
+                }
             }
             else{
-                tvmain.text=DecimalFormat("0.######").format(result).toString()
-                tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
+                val expression=getInputExpression()
+                val result=Expression(expression).calculate()
+                if (result.isNaN()){
+                    //Show error message
+                    Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    tvmain.text=DecimalFormat("0.######").format(result).toString()
+                    tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
+                }
             }
+
+
         }catch (e: java.lang.Exception){
             Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
         }
