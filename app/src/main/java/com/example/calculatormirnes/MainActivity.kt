@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                 dugme=false
             }
         }
-            bplus.setOnClickListener {
+        bplus.setOnClickListener {
             val tvmainrec=tvmain.text
             val tvmainsize=tvmainrec.length
             if(tvmainsize>0){
@@ -332,10 +332,22 @@ class MainActivity : AppCompatActivity() {
                 if( sas.factorialfindcomma(expression)) {//show error mesage
                     Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
                 }
-                else{
+                /*else{
                     var expressi=tvmain.text.replace(Regex("!"),"")
                     tvmain.text=FactorialK().result(expressi).toString()
                     tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
+                }*/
+                else{
+                    val expression=getInputExpression()
+                    val result=Expression(expression).calculate()
+                    if (result.isNaN()){
+                        //Show error message
+                        Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        tvmain.text=DecimalFormat("0.######").format(result).toString()
+                        tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
+                    }
                 }
             }
             else{
