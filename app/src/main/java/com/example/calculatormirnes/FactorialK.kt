@@ -12,13 +12,17 @@ class FactorialK {
         }
         return resultfact
     }
-    fun result(res: String): Int{
-        var res1=res.toInt()
-        var numb=1
-        var resfact=1
-        while((numb-1)!=res.toInt()){
-            resfact*=numb
-            numb++
+    fun result(res: String): Long{
+        var resfact:Long = 1
+        if(res.toLong()<=17) {
+            var numb = 1
+            while ((numb - 1) != res.toInt()) {
+                resfact *= numb
+                numb++
+            }
+        }
+        else{//this problem.. 15! treba staviti brojE+10
+
         }
         return resfact
     }
