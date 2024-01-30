@@ -15,8 +15,8 @@ class FactorialK {
     fun result(res: String): Long{
         var resfact:Long = 1
         if(res.toLong()<=17) {
-            var numb = 1
-            while ((numb - 1) != res.toInt()) {
+            var numb:Long = 1
+            while ((numb - 1) != res.toLong()) {
                 resfact *= numb
                 numb++
             }
