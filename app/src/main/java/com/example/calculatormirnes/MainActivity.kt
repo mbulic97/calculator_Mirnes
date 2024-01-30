@@ -292,7 +292,6 @@ class MainActivity : AppCompatActivity() {
                 deg=false
                 blog.text="RAD"
             }
-
         }
     }
 
@@ -324,7 +323,6 @@ class MainActivity : AppCompatActivity() {
 
         return expression
     }
-
     private fun showResult() {
         val tvmain=findViewById<TextView>(R.id.tvmain)
         try{
