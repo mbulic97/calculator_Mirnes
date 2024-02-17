@@ -267,7 +267,6 @@ class MainActivity : AppCompatActivity() {
             else{
                 Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
             }
-
         }
         binv.setOnClickListener {
             tvmain.text="1/${tvmain.text}"
@@ -327,19 +326,22 @@ class MainActivity : AppCompatActivity() {
         val tvmain=findViewById<TextView>(R.id.tvmain)
         try{
             if(dugme_faktor){
-                val expression=getInputExpression()
-                val sas= FactorialK()
-                if( sas.factorialfindcomma(expression)) {//show error mesage
+                var i=0
+                var findcomma=false
+                val tvmaintostring=tvmain.text.toString()
+                while (i!=tvmaintostring.length){
+                    if(tvmaintostring[i]=='.'||tvmaintostring[i]==','){
+                        findcomma=true
+                    }
+                    i++
+                }
+                if(findcomma){
                     Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
                 }
-                /*else{
-                    var expressi=tvmain.text.replace(Regex("!"),"")
-                    tvmain.text=FactorialK().result(expressi).toString()
-                    tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
-                }*/
                 else{
                     val expression=getInputExpression()
                     val result=Expression(expression).calculate()
+
                     if (result.isNaN()){
                         //Show error message
                         Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
@@ -349,10 +351,12 @@ class MainActivity : AppCompatActivity() {
                         tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
                     }
                 }
+                dugme_faktor=false
             }
             else{
                 val expression=getInputExpression()
                 val result=Expression(expression).calculate()
+
                 if (result.isNaN()){
                     //Show error message
                     Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
@@ -362,10 +366,9 @@ class MainActivity : AppCompatActivity() {
                     tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
                 }
             }
-
-
         }catch (e: java.lang.Exception){
             Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+
         }
     }
 }
