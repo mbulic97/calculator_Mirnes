@@ -125,84 +125,84 @@ class MainActivity : AppCompatActivity() {
 
         }
         bdot.setOnClickListener {
-            val tvmainrec=tvmain.text
-            if(tvmain.text.isEmpty()) {
-                val currentText = tvmain.text.toString()
+            val tvmainrec=tvsec.text
+            if(tvsec.text.isEmpty()) {
+                val currentText = tvsec.text.toString()
                 val newText = getString(R.string.placeholder_text, currentText, "0.")
-                tvmain.text = newText
+                tvsec.text = newText
             }
             else if(dugme){
-                val currentText = tvmain.text.toString()
+                val currentText = tvsec.text.toString()
                 val newText = getString(R.string.placeholder_text, currentText, ".")
-                tvmain.text = newText
+                tvsec.text = newText
                 dugme=false
             }
         }
         bplus.setOnClickListener {
-            val tvmainrec=tvmain.text
+            val tvmainrec=tvsec.text
             val tvmainsize=tvmainrec.length
             if(tvmainsize>0){
                 if(tvmainrec[tvmainsize-1]!='×'&&tvmainrec[tvmainsize-1]!='+'&&tvmainrec[tvmainsize-1]!='-'&&tvmainrec[tvmainsize-1]!='÷'){//projveri imal plus zadnja
-                    val currentText = tvmain.text.toString()
+                    val currentText = tvsec.text.toString()
                     val newText = getString(R.string.placeholder_text, currentText, "+")
-                    tvmain.text = newText
+                    tvsec.text = newText
                     dugme=true
                 }
                 else if(tvmainrec[tvmainsize-1]=='×'||tvmainrec[tvmainsize-1]=='-'||tvmainrec[tvmainsize-1]=='÷'){//privjeri imal -,/ i * stavi umjesto +
-                    val valText = tvmain.text.toString()
+                    val valText = tvsec.text.toString()
                     val updatedVal = valText.substring(0, valText.length - 1)
-                    tvmain.text = updatedVal
-                    val currentText = tvmain.text.toString()
+                    tvsec.text = updatedVal
+                    val currentText = tvsec.text.toString()
                     val newText = getString(R.string.placeholder_text, currentText, "+")
-                    tvmain.text = newText
+                    tvsec.text = newText
                 }
             }
         }
         bmin.setOnClickListener {
-            val tvmainrec=tvmain.text
+            val tvmainrec=tvsec.text
             val tvmainsize=tvmainrec.length
             if(tvmainsize>0){
                 if(tvmainrec[tvmainsize-1]!='×'&&tvmainrec[tvmainsize-1]!='+'&&tvmainrec[tvmainsize-1]!='-'&&tvmainrec[tvmainsize-1]!='÷'){//projveri imal minus zadnja
-                    tvmain.text="${tvmain.text}-"
+                    tvsec.text="${tvsec.text}-"
                     dugme=true
                 }
                 else if(tvmainrec[tvmainsize-1]=='×'||tvmainrec[tvmainsize-1]=='+'||tvmainrec[tvmainsize-1]=='÷'){//privjeri imal -,/ i * stavi umjesto +
-                    val valText = tvmain.text.toString()
+                    val valText = tvsec.text.toString()
                     val updatedVal = valText.substring(0, valText.length - 1)
-                    tvmain.text = updatedVal
-                    tvmain.text= "${tvmain.text}-"
+                    tvsec.text = updatedVal
+                    tvsec.text= "${tvsec.text}-"
                 }
             }
         }
         bmul.setOnClickListener {
-            val tvmainrec=tvmain.text
+            val tvmainrec=tvsec.text
             val tvmainsize=tvmainrec.length
             if(tvmainsize>0){
                 if(tvmainrec[tvmainsize-1]!='×'&&tvmainrec[tvmainsize-1]!='+'&&tvmainrec[tvmainsize-1]!='-'&&tvmainrec[tvmainsize-1]!='÷'){//projveri imal x zadnja
-                    tvmain.text="${tvmain.text}×"
+                    tvsec.text="${tvsec.text}×"
                     dugme=true
                 }
                 else if(tvmainrec[tvmainsize-1]=='+'||tvmainrec[tvmainsize-1]=='-'||tvmainrec[tvmainsize-1]=='÷'){//privjeri imal -,/ i * stavi umjesto +
-                    val valText = tvmain.text.toString()
+                    val valText = tvsec.text.toString()
                     val updatedVal = valText.substring(0, valText.length - 1)
-                    tvmain.text = updatedVal
-                    tvmain.text= "${tvmain.text}×"
+                    tvsec.text = updatedVal
+                    tvsec.text= "${tvsec.text}×"
                 }
             }
         }
         bdiv.setOnClickListener {
-            val tvmainrec=tvmain.text
+            val tvmainrec=tvsec.text
             val tvmainsize=tvmainrec.length
             if(tvmainsize>0){
                 if(tvmainrec[tvmainsize-1]!='×'&&tvmainrec[tvmainsize-1]!='+'&&tvmainrec[tvmainsize-1]!='-'&&tvmainrec[tvmainsize-1]!='÷'){//projveri imal ÷ zadnja
-                    tvmain.text="${tvmain.text}÷"
+                    tvsec.text="${tvsec.text}÷"
                     dugme=true
                 }
                 else if(tvmainrec[tvmainsize-1]=='+'||tvmainrec[tvmainsize-1]=='-'||tvmainrec[tvmainsize-1]=='×'){//privjeri imal -,/ i * stavi umjesto +
-                    val valText = tvmain.text.toString()
+                    val valText = tvsec.text.toString()
                     val updatedVal = valText.substring(0, valText.length - 1)
-                    tvmain.text = updatedVal
-                    tvmain.text= "${tvmain.text}÷"
+                    tvsec.text = updatedVal
+                    tvsec.text= "${tvmain.text}÷"
                 }
 
             }
