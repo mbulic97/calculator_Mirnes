@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val tvmain=findViewById<TextView>(R.id.tvmain)
-        val tvsec=findViewById<TextView>(R.id.tvsec)
+        val  tvsec=findViewById<TextView>(R.id.tvsec)
         val b0=findViewById<Button>(R.id.b0)
         val b1=findViewById<Button>(R.id.b1)
         val b2=findViewById<Button>(R.id.b2)
@@ -64,54 +64,52 @@ class MainActivity : AppCompatActivity() {
 
         }*/
         b0.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "0")
-            tvmain.text = newText
+            if(tvsec.text.toString().length>0){
+                if(tvsec.text.toString()[0]!='0'){// provjeri jel poc 0
+                    getStringtvsec(tvsec,0)
+                }
+            }
+            else{//prvi put 0
+                getStringtvsec(tvsec,0)
+
+            }
+
         }
         b1.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "1")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,1)
+
         }
         b2.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "2")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,2)
+
         }
         b3.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "3")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,3)
+
         }
         b4.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "4")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,4)
+
         }
         b5.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "5")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,5)
+
         }
         b6.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "6")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,6)
+
         }
         b7.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "7")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,7)
+
         }
         b8.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "8")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,8)
+
         }
         b9.setOnClickListener {
-            val currentText = tvmain.text.toString()
-            val newText = getString(R.string.placeholder_text, currentText, "9")
-            tvmain.text = newText
+            ispistvsecsamobrojod1do9(tvsec,9)
+
         }
         bac.setOnClickListener{
             tvmain.text=""
@@ -119,10 +117,10 @@ class MainActivity : AppCompatActivity() {
             dugme=true
         }
         bc.setOnClickListener {
-            val valText = tvmain.text.toString()
+            val valText = tvsec.text.toString()
             if(valText.length>0){
                 val updatedVal = valText.substring(0, valText.length - 1)
-                tvmain.text = updatedVal
+                tvsec.text = updatedVal
             }
 
         }
@@ -294,6 +292,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun ispistvsecsamobrojod1do9(tvsec: TextView, i: Int) {
+        if(tvsec.text.toString().length>0){
+            if(tvsec.text.toString()[0]=='0'){// provjeri jel poc 0
+                val valText = tvsec.text.toString()
+                val updatedVal = valText.substring(0, valText.length - 1)
+                tvsec.text = updatedVal
+                getStringtvsec(tvsec, i)
+            }
+            else{
+                getStringtvsec(tvsec,i)
+
+            }
+        }
+        else{//prvi put 0
+            getStringtvsec(tvsec,i)
+        }
+
+    }
+
+
+    private fun getStringtvsec(tvsec: TextView?, i: Int) {
+        val currentText = tvsec?.text.toString()
+        val newText = getString(R.string.placeholder_text, currentText, "$i")
+        tvsec?.text = newText
+    }
 
 
     private fun getInputExpression(): String {

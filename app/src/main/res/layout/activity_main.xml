@@ -32,7 +32,7 @@
         android:layout_weight="2"
         android:text="47"
         android:textColor="#fff"
-        android:textSize="30sp"
+        android:textSize="60sp"
         android:textAlignment="viewEnd"
         android:padding="10dp"
         android:gravity="bottom"
