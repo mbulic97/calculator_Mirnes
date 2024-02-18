@@ -12,12 +12,12 @@ import org.mariuszgromada.math.mxparser.Expression
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.pow
-
+private var dugme_faktor: Boolean=false
+private var deg: Boolean=false
+private var rad: Boolean=true
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var deg: Boolean=false
-    private var rad: Boolean=true
-    private var dugme_faktor: Boolean=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding=ActivityMainBinding.inflate(layoutInflater)
         val pi : String="3.14159265"
@@ -115,6 +115,7 @@ class MainActivity : AppCompatActivity() {
             tvmain.text=""
             tvsec.text=""
             dugme=true
+            dugme_faktor=false
         }
         bc.setOnClickListener {
             val valText = tvsec.text.toString()
@@ -208,75 +209,48 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bsqrt.setOnClickListener {
-
-            val valStr = tvmain.text.toString()
-            if(valStr.length>0){
-                val r = Math.sqrt(valStr.toDouble())
-                val rint=r.toInt()
-                if(rint.toDouble()==r){
-                    val fro =r.toInt()
-                    tvmain.text = fro.toString()
-                }
-                else{
-                    val fro =String.format(Locale.FRANCE,"%,5f",r)
-                    tvmain.text = fro
-
-                }
+            if(tvsec.length()==0){
+                tvsec.text="√(${tvsec.text}"
             }
             else{
-                Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
-
+                tvsec.text="${tvsec.text}√("
             }
-
         }
         bb1.setOnClickListener {
-            tvmain.text="${tvmain.text}("
+            tvsec.text="${tvsec.text}("
         }
         bb2.setOnClickListener {
-            tvmain.text="${tvmain.text})"
+            tvsec.text="${tvsec.text})"
         }
         bpi.setOnClickListener {
-            tvmain.text="${tvmain.text}${pi}"
+            tvsec.text="${tvsec.text}${pi}"
         }
         bsin.setOnClickListener {
-            tvmain.text="${tvmain.text}sin("
+            tvsec.text="${tvsec.text}sin("
         }
         bcos.setOnClickListener {
-            tvmain.text="${tvmain.text}cos("
+            tvsec.text="${tvsec.text}cos("
         }
         fact.setOnClickListener {
             dugme_faktor=true
-            tvmain.text="${tvmain.text}!"
+            tvsec.text="${tvsec.text}!"
         }
         bsquare.setOnClickListener {
-            val valStr = tvmain.text.toString()
-            if(valStr.length>0){
-                val r = valStr.toDouble()
-                val nakvrd=r*r
-                val nakvrdint=nakvrd.toInt()
-                if(nakvrdint.toDouble()==nakvrd){
-                    tvmain.text = nakvrd.toInt().toString()
-                }
-                else{
-                    val fro =String.format(Locale.FRANCE,"%,5f",nakvrd)
-                    tvmain.text = fro
-                }
-            }
-            else{
-                Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
-            }
+            tvsec.text="${tvsec.text}^(2)"
+
+
         }
         binv.setOnClickListener {
-            tvmain.text="1/${tvmain.text}"
+            tvsec.text="1/(${tvsec.text}"
         }
         bequal.setOnClickListener {
             showResult()
         }
         bln.setOnClickListener {
-            tvmain.text="${tvmain.text}ln("
+            tvsec.text="${tvsec.text}ln("
         }
         btan.setOnClickListener {
-            tvmain.text="${tvmain.text}tan("
+            tvsec.text="${tvsec.text}tan("
         }
         blog.setOnClickListener {
             if(rad){
@@ -294,7 +268,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun ispistvsecsamobrojod1do9(tvsec: TextView, i: Int) {
         if(tvsec.text.toString().length>0){
-            if(tvsec.text.toString()[0]=='0'){// provjeri jel poc 0
+            if(tvsec.text.toString()[0]=='0'&&tvsec.text.length==1){// provjeri jel poc 0 jer 01 ili 02 umjesto 1 ili 2
                 val valText = tvsec.text.toString()
                 val updatedVal = valText.substring(0, valText.length - 1)
                 tvsec.text = updatedVal
@@ -317,11 +291,9 @@ class MainActivity : AppCompatActivity() {
         val newText = getString(R.string.placeholder_text, currentText, "$i")
         tvsec?.text = newText
     }
-
-
     private fun getInputExpression(): String {
-        val tvmain=findViewById<TextView>(R.id.tvmain)
-        var expression=tvmain.text.replace(Regex("÷"),"/")
+        val tvsec=findViewById<TextView>(R.id.tvsec)
+        var expression=tvsec.text.replace(Regex("÷"),"/")
         expression=expression.replace(Regex("×"),"*")
         if(deg){
             expression=expression.replace(Regex("tan\\(([^)]+)\\)")){
@@ -346,12 +318,13 @@ class MainActivity : AppCompatActivity() {
         return expression
     }
     private fun showResult() {
+        val tvsec=findViewById<TextView>(R.id.tvsec)
         val tvmain=findViewById<TextView>(R.id.tvmain)
         try{
             if(dugme_faktor){
                 var i=0
                 var findcomma=false
-                val tvmaintostring=tvmain.text.toString()
+                val tvmaintostring=tvsec.text.toString()
                 while (i!=tvmaintostring.length){
                     if(tvmaintostring[i]=='.'||tvmaintostring[i]==','){
                         findcomma=true
@@ -359,7 +332,7 @@ class MainActivity : AppCompatActivity() {
                     i++
                 }
                 if(findcomma){
-                    Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Error", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     val expression=getInputExpression()
@@ -367,22 +340,21 @@ class MainActivity : AppCompatActivity() {
 
                     if (result.isNaN()){
                         //Show error message
-                        Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this,"Error", Toast.LENGTH_SHORT).show()
                     }
                     else{
                         tvmain.text=DecimalFormat("0.######").format(result).toString()
                         tvmain.setTextColor(ContextCompat.getColor(this,R.color.white))
                     }
                 }
-                dugme_faktor=false
             }
-            else{
+            else{//sve ostalo osim faktora
                 val expression=getInputExpression()
                 val result=Expression(expression).calculate()
 
                 if (result.isNaN()){
                     //Show error message
-                    Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Error", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     tvmain.text=DecimalFormat("0.######").format(result).toString()
@@ -390,7 +362,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }catch (e: java.lang.Exception){
-            Toast.makeText(this,"Error", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Error", Toast.LENGTH_SHORT).show()
 
         }
     }
