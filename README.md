@@ -25,3 +25,5 @@ https://github.com/mbulic97/calculator_Mirnes/assets/124406856/c1bb61d7-f643-4ad
 
 # Technologies used
 - Kotlin
+- [mXparser](http://mathparser.org/) (Mathematical Expressions Parser)
+
