@@ -7,6 +7,8 @@
 - Other functions: square root, factorial, natural logarithm
 - Constants: π (pi)
 - Ability to switch between degrees and radians for trigonometric functions
+- Light and dark mode support
+- Calculations are performed using the mXparser library
 
 # Screenshot
 
