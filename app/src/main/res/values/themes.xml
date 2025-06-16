@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.CalculatorMirnes" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/silver</item>
+        <item name="colorPrimaryVariant">@color/silver</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+    <style name="btnstyle">
+        <item name="android:background">@color/silver</item>
+        <item name="android:textColor">@color/silvertext</item>
+    </style>
+    <style name="btnstyle_numbers">
+        <item name="android:background">@color/silver</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>
